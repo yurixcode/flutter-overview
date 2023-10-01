@@ -56,6 +56,7 @@ class _ButtonsView extends StatelessWidget {
               icon: const Icon(Icons.terminal),
               label: const Text("Outlined Icon"),
             ),
+            const CustomButton(),
             TextButton(onPressed: () {}, child: const Text("Text")),
             TextButton.icon(
               onPressed: () {},
@@ -67,6 +68,34 @@ class _ButtonsView extends StatelessWidget {
               icon: const Icon(Icons.menu_book_rounded),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  const CustomButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Material(
+        color: colors.primary,
+        child: InkWell(
+          onTap: () {},
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text(
+              "Hola mundi",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
       ),
     );
