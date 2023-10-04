@@ -1,9 +1,37 @@
+import "dart:math";
 import 'package:flutter/material.dart';
 
-class AnimatedScreen extends StatelessWidget {
+class AnimatedScreen extends StatefulWidget {
   static const name = "animated_screen";
 
   const AnimatedScreen({super.key});
+
+  @override
+  State<AnimatedScreen> createState() => _AnimatedScreenState();
+}
+
+class _AnimatedScreenState extends State<AnimatedScreen> {
+  double width = 50;
+  double height = 50;
+  Color color = Colors.indigo;
+  double borderRadius = 10.0;
+
+  void changeShape() {
+    final random = Random();
+
+    width = random.nextInt(300) + 120;
+    height = random.nextInt(300) + 120;
+    borderRadius = random.nextInt(100) + 20;
+
+    color = Color.fromRGBO(
+      random.nextInt(255),
+      random.nextInt(255),
+      random.nextInt(255),
+      1,
+    );
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,19 +40,26 @@ class AnimatedScreen extends StatelessWidget {
         title: const Text("Animated Container"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: changeShape,
         child: const Icon(Icons.play_arrow_rounded),
       ),
       body: Center(
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeOutCubic,
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(20),
-          ),
+        child: Column(
+          children: [
+            const SizedBox(height: 175),
+            Text("$width x $height (${borderRadius.round()})"),
+            const SizedBox(height: 10),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.elasticOut,
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+            ),
+          ],
         ),
       ),
     );
