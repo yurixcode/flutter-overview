@@ -36,6 +36,17 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
     super.dispose();
   }
 
+  void moveScrollToBottom() {
+    if (scrollController.position.pixels + 150 <=
+        scrollController.position.maxScrollExtent) return;
+
+    scrollController.animateTo(
+      scrollController.position.pixels + 120,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
   Future<void> onRefresh() async {
     isLoading = true;
     setState(() {});
@@ -65,10 +76,9 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
     addFiveImages();
     isLoading = false;
 
-    // TODO: revisar si el widget está mounted
     if (!isMounted) return;
     setState(() {});
-    // TODO mover scroll
+    moveScrollToBottom();
   }
 
   @override
