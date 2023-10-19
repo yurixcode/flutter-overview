@@ -22,6 +22,12 @@ const appMenuItems = <MenuItem>[
     icon: Icons.countertops_rounded,
   ),
   MenuItem(
+    title: "Theme Changer",
+    subtitle: "Change the application theme",
+    link: "/theme-changer",
+    icon: Icons.art_track,
+  ),
+  MenuItem(
     title: "Buttons",
     subtitle: "Some buttons",
     link: "/buttons",
