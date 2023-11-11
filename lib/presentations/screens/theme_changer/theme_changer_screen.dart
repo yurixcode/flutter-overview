@@ -18,7 +18,7 @@ class ThemeChangerScreen extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // ref.read(isDarkModeProvider.notifier).update((state) => !state);
+              ref.read(isDarkModeProvider.notifier).update((state) => !state);
             },
             icon: isDarkMode
                 ? const Icon(Icons.dark_mode_outlined)
@@ -26,7 +26,7 @@ class ThemeChangerScreen extends ConsumerWidget {
           )
         ],
       ),
-      body: _ThemeChangerView(),
+      body: const _ThemeChangerView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // ref.read(counterProvider.notifier).state++;
@@ -44,6 +44,7 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Color> colors = ref.watch(colorListProvider);
+    final int selectedColor = ref.watch(selectedColorProvider);
 
     return ListView.builder(
       itemCount: colors.length,
@@ -55,9 +56,10 @@ class _ThemeChangerView extends ConsumerWidget {
           subtitle: Text("${color.value}"),
           activeColor: color,
           value: index,
-          groupValue: 0,
+          groupValue: selectedColor,
           onChanged: (value) {
             // todo: notify change
+            ref.read(selectedColorProvider.notifier).state = index;
           },
         );
       },
